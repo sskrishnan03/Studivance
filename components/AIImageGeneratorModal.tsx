@@ -17,8 +17,8 @@ const AIImageGeneratorModal: React.FC<AIImageGeneratorModalProps> = ({ isOpen, o
                 </div>
                 <h3 className="text-xl font-bold text-text-primary mb-2">Image Generation Unavailable</h3>
                 <p className="text-text-secondary max-w-md">
-                    The current API provider (Groq) does not support image generation. 
-                    Image generation requires a Gemini API key from Google AI Studio.
+                    The current API provider (OpenRouter) does not support image generation. 
+                    Image generation requires a separate image-capable API.
                 </p>
                 <p className="text-text-muted text-sm mt-4">
                     All other AI features (chat, notes, summaries, quizzes, generators) work with the current API.

@@ -173,7 +173,7 @@ const ChatbotModal: React.FC<ChatbotModalProps> = ({ isOpen, onClose }) => {
             ];
 
             const stream = groqChatStream(messages, {
-                model: 'llama-3.3-70b-versatile',
+                model: 'meta-llama/llama-3.3-70b-instruct',
                 signal: abortControllerRef.current?.signal
             });
 

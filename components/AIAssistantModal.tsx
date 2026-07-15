@@ -186,7 +186,7 @@ const AIAssistantModal: React.FC<AIAssistantModalProps> = ({ isOpen, onClose, no
                 const result = await groqChatJSON<{ quiz: QuizQuestion[] }>([
                     groqSystemMsg(`You are an expert quiz creator. Generate a short quiz with 3-4 questions based on the provided note content from "${subjectTitle}". Include a mix of multiple-choice and true/false questions. Return valid JSON with a "quiz" array. Each item must have: question (string), questionType ("multiple-choice" or "true-false"), options (array of strings, 4 for multiple-choice or ["True","False"] for true-false), answer (the correct option string), explanation (brief explanation).`),
                     groqUserMsg(`Note content from "${subjectTitle}":\n\n${plainTextContent}`)
-                ], { model: 'llama-3.3-70b-versatile' });
+                ], { model: 'meta-llama/llama-3.3-70b-instruct' });
                 if (result.quiz) {
                     setQuizData(result.quiz);
                 } else {
@@ -201,7 +201,7 @@ const AIAssistantModal: React.FC<AIAssistantModalProps> = ({ isOpen, onClose, no
 
                 const result = await groqChat([
                     groqUserMsg(prompts[action])
-                ], { model: 'llama-3.1-8b-instant', temperature: 0.3 });
+                ], { model: 'meta-llama/llama-3.1-8b-instruct', temperature: 0.3 });
 
                 setAiResponse(result.replace(/\n/g, '<br />'));
             }

@@ -59,7 +59,7 @@ const AIGenerateNoteModal: React.FC<{ isOpen: boolean; onClose: () => void; }> =
             const result = await groqChat([
                 groqSystemMsg(systemPrompt),
                 groqUserMsg(`Generate a study note about: "${prompt}". Make it comprehensive and well-structured with proper HTML formatting.`)
-            ], { model: 'llama-3.3-70b-versatile', temperature: 0.5, max_tokens: 8192 });
+            ], { model: 'meta-llama/llama-3.3-70b-instruct', temperature: 0.5, max_tokens: 8192 });
 
             let htmlContent = result;
             

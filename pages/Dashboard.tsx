@@ -36,7 +36,7 @@ const Dashboard: React.FC = () => {
 
         const response = await groqChat([
           groqUserMsg(prompt)
-        ], { model: 'llama-3.1-8b-instant', temperature: 0.3 });
+        ], { model: 'meta-llama/llama-3.1-8b-instruct', temperature: 0.3 });
         setAiInsight(response);
       } catch (error) {
         console.error("Failed to fetch AI insight:", error);

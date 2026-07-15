@@ -448,7 +448,7 @@ const Notes: React.FC = () => {
 
             const result = await groqChat([
                 groqUserMsg(`You are an expert academic assistant. Summarize the following note content accurately and concisely. The summary must be based ONLY on the provided text. Format your response in HTML using <ul> and <li> tags for bullet points.\n\n${plainTextContent}`)
-            ], { model: 'llama-3.1-8b-instant', temperature: 0.3 });
+            ], { model: 'meta-llama/llama-3.1-8b-instruct', temperature: 0.3 });
 
             setSummary(result);
 

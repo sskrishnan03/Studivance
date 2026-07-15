@@ -1,4 +1,4 @@
-const GROQ_BASE_URL = 'https://api.groq.com/openai/v1';
+const OPENROUTER_BASE_URL = 'https://openrouter.ai/api/v1';
 
 interface GroqMessage {
   role: 'system' | 'user' | 'assistant';
@@ -13,18 +13,20 @@ interface GroqOptions {
 }
 
 function getApiKey(): string {
-  return (process.env.API_KEY || process.env.GROQ_API_KEY || '') as string;
+  return (process.env.OPENROUTER_API_KEY || process.env.API_KEY || '') as string;
 }
 
 export async function groqChat(messages: GroqMessage[], options?: GroqOptions): Promise<string> {
-  const response = await fetch(`${GROQ_BASE_URL}/chat/completions`, {
+  const response = await fetch(`${OPENROUTER_BASE_URL}/chat/completions`, {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${getApiKey()}`,
       'Content-Type': 'application/json',
+      'HTTP-Referer': window.location.origin,
+      'X-Title': 'Studivance',
     },
     body: JSON.stringify({
-      model: options?.model || 'llama-3.3-70b-versatile',
+      model: options?.model || 'meta-llama/llama-3.3-70b-instruct',
       messages,
       temperature: options?.temperature ?? 0.7,
       max_tokens: options?.max_tokens || 4096,
@@ -34,7 +36,7 @@ export async function groqChat(messages: GroqMessage[], options?: GroqOptions): 
 
   if (!response.ok) {
     const errBody = await response.text();
-    throw new Error(`Groq API error ${response.status}: ${errBody}`);
+    throw new Error(`OpenRouter API error ${response.status}: ${errBody}`);
   }
 
   const data = await response.json();
@@ -42,14 +44,16 @@ export async function groqChat(messages: GroqMessage[], options?: GroqOptions): 
 }
 
 export async function groqChatJSON<T = any>(messages: GroqMessage[], options?: GroqOptions): Promise<T> {
-  const response = await fetch(`${GROQ_BASE_URL}/chat/completions`, {
+  const response = await fetch(`${OPENROUTER_BASE_URL}/chat/completions`, {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${getApiKey()}`,
       'Content-Type': 'application/json',
+      'HTTP-Referer': window.location.origin,
+      'X-Title': 'Studivance',
     },
     body: JSON.stringify({
-      model: options?.model || 'llama-3.3-70b-versatile',
+      model: options?.model || 'meta-llama/llama-3.3-70b-instruct',
       messages,
       response_format: { type: 'json_object' },
       temperature: options?.temperature ?? 0.2,
@@ -60,7 +64,7 @@ export async function groqChatJSON<T = any>(messages: GroqMessage[], options?: G
 
   if (!response.ok) {
     const errBody = await response.text();
-    throw new Error(`Groq API error ${response.status}: ${errBody}`);
+    throw new Error(`OpenRouter API error ${response.status}: ${errBody}`);
   }
 
   const data = await response.json();
@@ -68,14 +72,16 @@ export async function groqChatJSON<T = any>(messages: GroqMessage[], options?: G
 }
 
 export async function* groqChatStream(messages: GroqMessage[], options?: GroqOptions): AsyncGenerator<string> {
-  const response = await fetch(`${GROQ_BASE_URL}/chat/completions`, {
+  const response = await fetch(`${OPENROUTER_BASE_URL}/chat/completions`, {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${getApiKey()}`,
       'Content-Type': 'application/json',
+      'HTTP-Referer': window.location.origin,
+      'X-Title': 'Studivance',
     },
     body: JSON.stringify({
-      model: options?.model || 'llama-3.3-70b-versatile',
+      model: options?.model || 'meta-llama/llama-3.3-70b-instruct',
       messages,
       stream: true,
       temperature: options?.temperature ?? 0.7,
@@ -86,7 +92,7 @@ export async function* groqChatStream(messages: GroqMessage[], options?: GroqOpt
 
   if (!response.ok) {
     const errBody = await response.text();
-    throw new Error(`Groq API error ${response.status}: ${errBody}`);
+    throw new Error(`OpenRouter API error ${response.status}: ${errBody}`);
   }
 
   const reader = response.body!.getReader();

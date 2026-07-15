@@ -1,0 +1,8 @@
+services:
+  - type: static_site
+    name: studivance
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: OPENROUTER_API_KEY
+        sync: false
